@@ -23,7 +23,12 @@ public class State implements Serializable {
     @Column(unique = true, precision = 2, nullable = false)
     private String abbreviation;
 
-    // @ElementCollection(fetch = FetchType.EAGER)
+    public State(Integer id, String name, String abbreviation) {
+		this.id = id;
+		this.name = name;
+		this.abbreviation = abbreviation;
+	}
+	// @ElementCollection(fetch = FetchType.EAGER)
     // @CollectionTable(name = "t_user_roles", joinColumns = @JoinColumn(name = "id"))
     // @Column(name = "role_id")
     // private List<String> roles = new ArrayList<>();
