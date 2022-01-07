@@ -1,16 +1,21 @@
 package br.com.foxi.controleveiculosapi.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
-@Table(name = "t_states")
+@Table(name = "t_state")
 public class State implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -23,34 +28,48 @@ public class State implements Serializable {
     @Column(unique = true, precision = 2, nullable = false)
     private String abbreviation;
 
+	@JsonIgnore
+	@OneToMany(mappedBy = "state")
+	private List<City> city = new ArrayList<>();
+	public State(){
+
+	}
+
     public State(Integer id, String name, String abbreviation) {
 		this.id = id;
 		this.name = name;
 		this.abbreviation = abbreviation;
 	}
-	// @ElementCollection(fetch = FetchType.EAGER)
-    // @CollectionTable(name = "t_user_roles", joinColumns = @JoinColumn(name = "id"))
-    // @Column(name = "role_id")
-    // private List<String> roles = new ArrayList<>();
+
 	public Integer getId() {
 		return id;
 	}
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	public String getAbbreviation() {
 		return abbreviation;
 	}
+
 	public void setAbbreviation(String abbreviation) {
 		this.abbreviation = abbreviation;
 	}
+	
+	public List<City> getCity() {
+		return city;
+	}
 
-    
-
+	public void setCity(List<City> city) {
+		this.city = city;
+	}
 }
