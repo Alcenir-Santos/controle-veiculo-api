@@ -10,13 +10,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.foxi.controleveiculosapi.domain.Adresses;
 import br.com.foxi.controleveiculosapi.service.AdressesService;
-import br.com.foxi.controleveiculosapi.service.CityService;
 
 @RestController
 @RequestMapping(value = "/adresses")
 public class AdressesController {
-	@Autowired
-	private CityService cityService;
 	@Autowired
 	private AdressesService adressesService;
 

@@ -37,6 +37,20 @@ create table t_user_roles (
     role_id varchar(255)
 );
 
+create table t_costumer(
+    id serial not null,
+    full_name varchar(200) not null,
+    document varchar(240) not null,
+    email varchar(200) not null,
+    adresses_id int4,
+    primary key (id)
+);
+
+create table t_cellphones (
+    costumer_id integer not null,
+    cell_phone varchar(255)
+);
+
 alter table
     t_state
 add
@@ -56,6 +70,16 @@ alter table
     t_user_roles
 add
     constraint FK_user_role foreign key (id) references t_user;
+
+alter table
+    t_costumer
+add
+    constraint FK_Adresses_costumer foreign key (adresses_id) references t_adresses;
+
+alter table
+    t_cellphones
+add
+    constraint FH_costumer_cellphone foreign key(costumer_id) references t_costumer;
 
 insert into
     public.t_state (abbreviation, name)
@@ -201,4 +225,5 @@ INSERT INTO
     public.t_user_roles (id, role_id)
 VALUES
     (1, 'USERS'),
-    (1, 'MANAGERS');
+    (1, 'MANAGERS'),
+    (1, 'COSTUMER');
