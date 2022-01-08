@@ -60,28 +60,10 @@ public class CostumerService {
         }
     }
     public Costumer update(Costumer obj){
-        Costumer costumer = costumerRepository.findByDocumentAndId(obj.getDocument(),obj.getId());
-        if (costumer != null) 
+        Costumer costumer = costumerRepository.findByDocument(obj.getDocument());
+        if (costumer.getId() != obj.getId()) 
             throw new DataIntegrityException("Documento pertence a outro cadastro");
 
-        Costumer newObj = find(obj.getId());
-        updateData(newObj,obj);
-        return costumerRepository.save(newObj);
+        return costumerRepository.save(obj);
     }
-    private void updateData(Costumer newObj,  Costumer obj) {
-        Adresses adresses = adressesService.find(obj.getAdresses().getId());
-
-
-		newObj.setFullName(obj.getFullName());
-		newObj.setDocument(obj.getDocument());
-		newObj.setEmail(obj.getEmail());
-		newObj.setCellPhone(obj.getCellPhone());
-        newObj.getAdresses().setCity(adresses.getCity());
-        newObj.getAdresses().setComplement(adresses.getComplement());
-        newObj.getAdresses().setStreet(adresses.getStreet());
-        newObj.getAdresses().setDistrict(adresses.getDistrict());
-        newObj.getAdresses().setZipCode(adresses.getZipCode());
-        
-
-	}
 }

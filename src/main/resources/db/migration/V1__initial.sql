@@ -51,6 +51,18 @@ create table t_cellphones (
     cell_phone varchar(255)
 );
 
+create table t_driver(
+    id serial not null,
+    full_name varchar(200) not null,
+    document varchar(40) not null,
+    email varchar(200),
+    license varchar(20) not NULL,
+    cell_phone varchar(20) NOT NULL,
+    validate_license timestamp,
+    adresses_id int4,
+    primary key (id)
+);
+
 alter table
     t_state
 add
@@ -79,7 +91,12 @@ add
 alter table
     t_cellphones
 add
-    constraint FH_costumer_cellphone foreign key(costumer_id) references t_costumer;
+    constraint FK_costumer_cellphone foreign key(costumer_id) references t_costumer;
+
+alter table
+    t_driver
+add
+    constraint FK_Adresses_driver foreign key (adresses_id) references t_adresses;
 
 insert into
     public.t_state (abbreviation, name)
@@ -226,4 +243,5 @@ INSERT INTO
 VALUES
     (1, 'USERS'),
     (1, 'MANAGERS'),
-    (1, 'COSTUMER');
+    (1, 'COSTUMER'),
+    (1, 'DRIVER');

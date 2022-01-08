@@ -13,56 +13,56 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.foxi.controleveiculosapi.domain.Costumer;
-import br.com.foxi.controleveiculosapi.service.CostumerService;
+import br.com.foxi.controleveiculosapi.domain.Driver;
+import br.com.foxi.controleveiculosapi.service.DriverService;
 
 @RestController
-@RequestMapping("/costumers")
-public class CostumerController {
+@RequestMapping("/drivers")
+public class DriverController {
     @Autowired
-    private CostumerService costumerService;
+    private DriverService driverService;
 
-    @PreAuthorize("hasRole('ROLE_COSTUMER')")
+    @PreAuthorize("hasRole('ROLE_DRIVER')")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public ResponseEntity<Page<Costumer>> findAll(
+    public ResponseEntity<Page<Driver>> findAll(
             @RequestParam(value = "page", defaultValue = "0") Integer page,
             @RequestParam(value = "linesPage", defaultValue = "10") Integer linesPage,
             @RequestParam(value = "direction", defaultValue = "ASC") String direction,
             @RequestParam(value = "orderBy", defaultValue = "fullName") String orderBy) {
 
-        Page<Costumer> list = costumerService.findAll(page, linesPage, direction, orderBy);
+        Page<Driver> list = driverService.findAll(page, linesPage, direction, orderBy);
         return ResponseEntity.ok().body(list);
     }
 
-    @PreAuthorize("hasRole('ROLE_COSTUMER')")
-    @RequestMapping(value = "/find/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Costumer> findById(@PathVariable Integer id) {
-        Costumer list = costumerService.find(id);
-        return ResponseEntity.ok().body(list);
-    }
-
-    @PreAuthorize("hasRole('ROLE_COSTUMER')")
+    @PreAuthorize("hasRole('ROLE_DRIVER')")
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
-    public ResponseEntity<?> save(@RequestBody Costumer obj) {
-        Costumer costumer = costumerService.save(obj);
+    public ResponseEntity<?> save(@RequestBody Driver obj) {
+        Driver costumer = driverService.save(obj);
 
         return ResponseEntity.ok().body(costumer);
     }
 
-    @PreAuthorize("hasRole('ROLE_COSTUMER')")
+    @PreAuthorize("hasRole('ROLE_DRIVER')")
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
-        costumerService.delete(id);
+        driverService.delete(id);
 
         return ResponseEntity.noContent().build();
     }
 
-    @PreAuthorize("hasRole('ROLE_COSTUMER')")
+    @PreAuthorize("hasRole('ROLE_DRIVER')")
     @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<?> update(@Valid @RequestBody Costumer obj, @PathVariable Integer id) {
+    public ResponseEntity<?> update(@Valid @RequestBody Driver obj, @PathVariable Integer id) {
         obj.setId(id);
-        Costumer objNew = costumerService.update(obj);
+        Driver objNew = driverService.update(obj);
 
         return ResponseEntity.ok().body(objNew);
+    }
+
+    @PreAuthorize("hasRole('ROLE_DRIVER')")
+    @RequestMapping(value = "/find/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Driver> findById(@PathVariable Integer id) {
+        Driver list = driverService.find(id);
+        return ResponseEntity.ok().body(list);
     }
 }
